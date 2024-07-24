@@ -4,7 +4,6 @@
 #define FN 1
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
 	[BASE] = LAYOUT(
 		KC_PSCR, KC_SCRL, KC_PAUS, KC_MUTE,
 		KC_INS, KC_HOME, KC_PGUP, LT(1,KC_NUM), KC_PSLS, KC_PAST, KC_PMNS, 
@@ -23,13 +22,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
         /* Top-right encoder (scanning) */
         case 0:
             tap_code(clockwise ? KC_VOLD : KC_VOLU);
             break;
     }
+
+    return false;
+}
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  debug_keyboard=true;
+  debug_mouse=true;
 }
 
 #ifdef OLED_ENABLE
